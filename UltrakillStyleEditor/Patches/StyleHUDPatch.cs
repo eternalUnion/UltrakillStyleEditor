@@ -46,11 +46,11 @@ namespace UltrakillStyleEditor.Patches
 
             if (__instance.idNameDict.TryGetValue(__0, out string text))
             {
-                ConfigManager.styleDic.Add(__0, new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(text)));
+                ConfigManager.styleDic.Add(__0, new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(text), true));
             }
             else
             {
-                ConfigManager.styleDic.Add(__0, new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(__0)));
+                ConfigManager.styleDic.Add(__0, new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(__0), true));
             }
 
             __result = ConfigManager.styleDic[__0].formattedString;
