@@ -9,7 +9,7 @@ namespace UltrakillStyleEditor
     {
         public const string PLUGIN_NAME = "StyleEditor";
         public const string PLUGIN_GUID = "eternalUnion.ultrakill.styleEditor";
-        public const string PLUGIN_VERSION = "1.0.0";
+        public const string PLUGIN_VERSION = "1.0.1";
 
         public static Harmony harmony;
 
