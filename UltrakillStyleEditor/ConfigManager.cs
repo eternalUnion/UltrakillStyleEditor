@@ -4,6 +4,8 @@ using PluginConfig.API.Fields;
 using PluginConfig.API.Functionals;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -25,15 +27,32 @@ namespace UltrakillStyleEditor
 
         public static ButtonField unknownPanelSearchButton;
 
-        private static void AddValueChangeListener(string id, FormattedStringField field)
+        public static void AddValueChangeListener(string id, FormattedStringField field)
         {
             field.onValueChange += (FormattedStringField.FormattedStringValueChangeEvent e) =>
             {
+                FormattedStringBuilder builder = new FormattedStringBuilder();
+
+                List<CharacterInfo> format = e.formattedString.GetFormat();
+                string rawText = e.formattedString.rawString;
+
+                for (int i = 0; i < format.Count; i++)
+                {
+                    if (rawText[i] == '+')
+                        continue;
+                    builder.currentFormat = format[i];
+                    builder.Append(rawText[i]);
+                }
+
+                e.formattedString = builder.Build();
+
                 if (StyleHUD.instance == null)
                     return;
 
                 StyleHUD.instance.idNameDict[id] = e.formattedString.formattedString;
             };
+
+            field.TriggerValueChangeEvent();
         }
 
         private static void MakeSearchBar(StringField searchBar, ButtonArrayField searchButton, ConfigPanel targetPanel)
@@ -77,6 +96,9 @@ namespace UltrakillStyleEditor
             inited = true;
 
             config = PluginConfigurator.Create("Style Editor", Plugin.PLUGIN_GUID);
+            string pluginPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string iconPath = Path.Combine(pluginPath, "icon.png");
+            config.SetIconWithURL("file://" + iconPath);
 
             // ROOT PANEL
             new ConfigHeader(config.rootPanel, "Ultrakill Styles");
@@ -169,12 +191,21 @@ namespace UltrakillStyleEditor
                 if (StyleHUD.instance == null)
                     return;
 
+                List<KeyValuePair<string, string>> toProcess = new List<KeyValuePair<string, string>>();
+
                 foreach (KeyValuePair<string, string> pair in StyleHUD.instance.idNameDict)
                 {
                     if (styleDic.ContainsKey(pair.Key))
                         continue;
 
-                    styleDic.Add(pair.Key, new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value)));
+                    toProcess.Add(pair);
+                }
+
+                foreach (var pair in toProcess)
+                {
+                    var field = new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value));
+                    styleDic.Add(pair.Key, field);
+                    AddValueChangeListener(pair.Key, field);
                 }
             };
 

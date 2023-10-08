@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>UltrakillStyleEditor</AssemblyName>
     <Description>Edit style hud texts with ease</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -30,5 +30,11 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>libs\UnityEngine.UI.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

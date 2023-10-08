@@ -3,6 +3,7 @@ using PluginConfig.API.Fields;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace UltrakillStyleEditor.Patches
 {
@@ -46,12 +47,18 @@ namespace UltrakillStyleEditor.Patches
 
             if (__instance.idNameDict.TryGetValue(__0, out string text))
             {
-                ConfigManager.styleDic.Add(__0, new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(text), true));
+                var configField = new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(text), true);
+                ConfigManager.styleDic.Add(__0, configField);
+                ConfigManager.AddValueChangeListener(__0, configField);
             }
             else
             {
-                ConfigManager.styleDic.Add(__0, new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(__0), true));
+                var configField = new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(__0), true);
+                ConfigManager.styleDic.Add(__0, configField);
+                ConfigManager.AddValueChangeListener(__0, configField);
             }
+
+            Debug.LogWarning($"Added unknown style {__0}");
 
             __result = ConfigManager.styleDic[__0].formattedString;
             return false;
