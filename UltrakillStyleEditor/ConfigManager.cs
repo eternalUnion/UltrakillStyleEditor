@@ -25,15 +25,32 @@ namespace UltrakillStyleEditor
 
         public static ButtonField unknownPanelSearchButton;
 
-        private static void AddValueChangeListener(string id, FormattedStringField field)
+        public static void AddValueChangeListener(string id, FormattedStringField field)
         {
             field.onValueChange += (FormattedStringField.FormattedStringValueChangeEvent e) =>
             {
+                FormattedStringBuilder builder = new FormattedStringBuilder();
+
+                List<CharacterInfo> format = e.formattedString.GetFormat();
+                string rawText = e.formattedString.rawString;
+
+                for (int i = 0; i < format.Count; i++)
+                {
+                    if (rawText[i] == '+')
+                        continue;
+                    builder.currentFormat = format[i];
+                    builder.Append(rawText[i]);
+                }
+
+                e.formattedString = builder.Build();
+
                 if (StyleHUD.instance == null)
                     return;
 
                 StyleHUD.instance.idNameDict[id] = e.formattedString.formattedString;
             };
+
+            field.TriggerValueChangeEvent();
         }
 
         private static void MakeSearchBar(StringField searchBar, ButtonArrayField searchButton, ConfigPanel targetPanel)
@@ -174,7 +191,9 @@ namespace UltrakillStyleEditor
                     if (styleDic.ContainsKey(pair.Key))
                         continue;
 
-                    styleDic.Add(pair.Key, new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value)));
+                    var field = new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value));
+                    styleDic.Add(pair.Key, field);
+                    AddValueChangeListener(pair.Key, field);
                 }
             };
 
