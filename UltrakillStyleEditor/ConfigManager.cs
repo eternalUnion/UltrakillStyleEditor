@@ -191,11 +191,18 @@ namespace UltrakillStyleEditor
                 if (StyleHUD.instance == null)
                     return;
 
+                List<KeyValuePair<string, string>> toProcess = new List<KeyValuePair<string, string>>();
+
                 foreach (KeyValuePair<string, string> pair in StyleHUD.instance.idNameDict)
                 {
                     if (styleDic.ContainsKey(pair.Key))
                         continue;
 
+                    toProcess.Add(pair);
+                }
+
+                foreach (var pair in toProcess)
+                {
                     var field = new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value));
                     styleDic.Add(pair.Key, field);
                     AddValueChangeListener(pair.Key, field);

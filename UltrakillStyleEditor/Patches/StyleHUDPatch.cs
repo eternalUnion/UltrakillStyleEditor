@@ -3,6 +3,7 @@ using PluginConfig.API.Fields;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace UltrakillStyleEditor.Patches
 {
@@ -56,6 +57,8 @@ namespace UltrakillStyleEditor.Patches
                 ConfigManager.styleDic.Add(__0, configField);
                 ConfigManager.AddValueChangeListener(__0, configField);
             }
+
+            Debug.LogWarning($"Added unknown style {__0}");
 
             __result = ConfigManager.styleDic[__0].formattedString;
             return false;
