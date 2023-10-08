@@ -4,6 +4,8 @@ using PluginConfig.API.Fields;
 using PluginConfig.API.Functionals;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -94,6 +96,9 @@ namespace UltrakillStyleEditor
             inited = true;
 
             config = PluginConfigurator.Create("Style Editor", Plugin.PLUGIN_GUID);
+            string pluginPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string iconPath = Path.Combine(pluginPath, "icon.png");
+            config.SetIconWithURL("file://" + iconPath);
 
             // ROOT PANEL
             new ConfigHeader(config.rootPanel, "Ultrakill Styles");
