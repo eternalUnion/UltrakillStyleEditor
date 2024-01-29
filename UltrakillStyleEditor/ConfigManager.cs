@@ -1,4 +1,4 @@
-﻿using PluginConfig.API;
+using PluginConfig.API;
 using PluginConfig.API.Decorators;
 using PluginConfig.API.Fields;
 using PluginConfig.API.Functionals;
@@ -177,6 +177,17 @@ namespace UltrakillStyleEditor
             styleDic.Add("SCRONGBONGLED", new FormattedStringField(killStylePanel, "Scrongbongled", "SCRONGBONGLED", Utils.FormattedStringFromFormattedText("SCRONGBONGLED"), true));
             styleDic.Add("SCRONGLED", new FormattedStringField(killStylePanel, "Scrongled", "SCRONGLED", Utils.FormattedStringFromFormattedText("SCRONGLED"), true));
             styleDic.Add("ENVIROKILL", new FormattedStringField(killStylePanel, "Envirokill", "ENVIROKILL", Utils.FormattedStringFromFormattedText("ENVIROKILL"), true));
+            styleDic.Add("TRAMPLED", new FormattedStringField(killStylePanel, "Trampled", "TRAMPLED", Utils.FormattedStringFromFormattedText("TRAMPLED"), true));
+            styleDic.Add("ROADKILL", new FormattedStringField(killStylePanel, "Roadkill", "ROADKILL", Utils.FormattedStringFromFormattedText("ROADKILL"), true));
+            styleDic.Add("FOR THEE", new FormattedStringField(killStylePanel, "For Thee", "FOR THEE", Utils.FormattedStringFromFormattedText("FOR THEE"), true));
+            styleDic.Add("BOILED", new FormattedStringField(killStylePanel, "Boiled", "BOILED", Utils.FormattedStringFromFormattedText("BOILED"), true));
+            styleDic.Add("PANCAKED", new FormattedStringField(killStylePanel, "Pancaked", "PANCAKED", Utils.FormattedStringFromFormattedText("PANCAKED"), true));
+            styleDic.Add("ultrakill.roundtrip", new FormattedStringField(killStylePanel, "Round Trip", "ultrakill.roundtrip", Utils.FormattedStringFromFormattedText("<color=lime>ROUND TRIP</color>"), true));
+            styleDic.Add("SLIPPED", new FormattedStringField(killStylePanel, "Slipped", "SLIPPED", Utils.FormattedStringFromFormattedText("SLIPPED"), true));
+            styleDic.Add("LOST", new FormattedStringField(killStylePanel, "Lost", "LOST", Utils.FormattedStringFromFormattedText("LOST"), true));
+            styleDic.Add("LONG WAY DOWN", new FormattedStringField(killStylePanel, "Long Way Down", "LONG WAY DOWN", Utils.FormattedStringFromFormattedText("LONG WAY DOWN"), true));
+            styleDic.Add("M.A.D.", new FormattedStringField(killStylePanel, "M.A.D.", "M.A.D.", Utils.FormattedStringFromFormattedText("M.A.D."), true));
+            
 
             //why_are_you_even_spawning_enemies_here
 
@@ -196,7 +207,12 @@ namespace UltrakillStyleEditor
             styleDic.Add("ultrakill.nailhit", new FormattedStringField(hurtStylePanel, "Nail hit", "ultrakill.nailhit", Utils.FormattedStringFromFormattedText(""), true));
             styleDic.Add("ultrakill.explosionhit", new FormattedStringField(hurtStylePanel, "Explosion hit", "ultrakill.explosionhit", Utils.FormattedStringFromFormattedText(""), true));
             styleDic.Add("ultrakill.firehit", new FormattedStringField(hurtStylePanel, "Fire hit", "ultrakill.firehit", Utils.FormattedStringFromFormattedText(""), true));
-            
+            styleDic.Add("<color=green>GUARD BREAK</color>", new FormattedStringField(hurtStylePanel, "Guard Break", "<color=green>GUARD BREAK</color>", Utils.FormattedStringFromFormattedText("<color=green>GUARD BREAK</color>"), true));
+            styleDic.Add("ultrakill.serve", new FormattedStringField(hurtStylePanel, "Served", "ultrakill.serve", Utils.FormattedStringFromFormattedText("<color=cyan>SERVED</color>"), true));
+            styleDic.Add("ultrakill.strike", new FormattedStringField(hurtStylePanel, "Strike!", "ultrakill.strike", Utils.FormattedStringFromFormattedText("<color=cyan>STRIKE!</color>"), true));
+            styleDic.Add("ultrakill.landyours", new FormattedStringField(hurtStylePanel, "Landyours", "ultrakill.landyours", Utils.FormattedStringFromFormattedText("<color=green>LANDYOURS</color>"), true));
+            styleDic.Add("ultrakill.rocketreturn", new FormattedStringField(hurtStylePanel, "Rocket Return", "ultrakill.rocketreturn", Utils.FormattedStringFromFormattedText("<color=cyan>ROCKET RETURN</color>"), true));
+
             // MISC STYLES
             styleDic.Add("ultrakill.secret", new FormattedStringField(miscStylePanel, "Secret", "ultrakill.secret", Utils.FormattedStringFromFormattedText("<color=cyan>SECRET</color>"), true));
             styleDic.Add("ultrakill.quickdraw", new FormattedStringField(miscStylePanel, "Quickdraw", "ultrakill.quickdraw", Utils.FormattedStringFromFormattedText("<color=cyan>QUICKDRAW</color>"), true));
@@ -206,6 +222,22 @@ namespace UltrakillStyleEditor
             styleDic.Add("ultrakill.chargeback", new FormattedStringField(miscStylePanel, "Chargeback", "ultrakill.chargeback", Utils.FormattedStringFromFormattedText("CHARGEBACK"), true));
             styleDic.Add("ultrakill.ultra", new FormattedStringField(miscStylePanel, "Ultra prefix", "ultrakill.ultra", Utils.FormattedStringFromFormattedText("<color=orange>ULTRA</color>"), true));
             styleDic.Add("ultrakill.counter", new FormattedStringField(miscStylePanel, "Counter prefix", "ultrakill.counter", Utils.FormattedStringFromFormattedText("<color=red>COUNTER</color>"), true));
+            styleDic.Add("<color=white>PAWN CAPTURE</color>", new FormattedStringField(miscStylePanel, "Pawn Capture", "<color=white>PAWN CAPTURE</color>", Utils.FormattedStringFromFormattedText("<color=white>PAWN CAPTURE</color>"), true));
+            styleDic.Add("<color=green>KNIGHT CAPTURE</color>", new FormattedStringField(miscStylePanel, "Knight Capture", "<color=green>KNIGHT CAPTURE</color>", Utils.FormattedStringFromFormattedText("<color=green>KNIGHT CAPTURE</color>"), true));
+            styleDic.Add("<color=green>BISHOP CAPTURE</color>", new FormattedStringField(miscStylePanel, "Bishop Capture", "<color=green>BISHOP CAPTURE</color>", Utils.FormattedStringFromFormattedText("<color=green>BISHOP CAPTURE</color>"), true));
+            styleDic.Add("<color=orange>ROOK CAPTURE</color>", new FormattedStringField(miscStylePanel, "Rook Capture", "<color=green>ROOK CAPTURE</color>", Utils.FormattedStringFromFormattedText("<color=green>ROOK CAPTURE</color>"), true));
+            styleDic.Add("<color=red>QUEEN CAPTURE</color>", new FormattedStringField(miscStylePanel, "Queen Capture", "<color=green>QUEEN CAPTURE</color>", Utils.FormattedStringFromFormattedText("<color=green>QUEEN CAPTURE</color>"), true));
+            styleDic.Add("<color=green>KNIGHT PROMOTION</color>", new FormattedStringField(miscStylePanel, "Knight Promotion", "<color=green>KNIGHT PROMOTION</color>", Utils.FormattedStringFromFormattedText("<color=green>KNIGHT PROMOTION</color>"), true));
+            styleDic.Add("<color=green>BISHOP PROMOTION</color>", new FormattedStringField(miscStylePanel, "Bishop Promotion", "<color=green>BISHOP PROMOTION</color>", Utils.FormattedStringFromFormattedText("<color=green>BISHOP PROMOTION</color>"), true));
+            styleDic.Add("<color=green>ROOK PROMOTION</color>", new FormattedStringField(miscStylePanel, "Rook Promotion", "<color=green>ROOK PROMOTION</color>", Utils.FormattedStringFromFormattedText("<color=green>ROOK PROMOTION</color>"), true));
+            styleDic.Add("<color=green>QUEEN PROMOTION</color>", new FormattedStringField(miscStylePanel, "Queen Promotion", "<color=green>QUEEN PROMOTION</color>", Utils.FormattedStringFromFormattedText("<color=green>QUEEN PROMOTION</color>"), true));
+            styleDic.Add("<color=#00ffffff>EN PASSANT</color>", new FormattedStringField(miscStylePanel, "En Passant", "<color=#00ffffff>EN PASSANT</color>", Utils.FormattedStringFromFormattedText("<color=#00ffffff>EN PASSANT</color>"), true));
+            styleDic.Add("<color=#00ffffff>CASTLED</color>", new FormattedStringField(miscStylePanel, "Castled", "<color=#00ffffff>CASTLED</color>", Utils.FormattedStringFromFormattedText("<color=#00ffffff>CASTLED</color>"), true));
+            styleDic.Add("<color=green>BONGCLOUD</color>", new FormattedStringField(miscStylePanel, "Bongcloud", "<color=green>BONGCLOUD</color>", Utils.FormattedStringFromFormattedText("<color=green>BONGCLOUD</color>"), true));
+            styleDic.Add("<color=red>FOOLS MATE</color>", new FormattedStringField(miscStylePanel, "Fools Mate", "<color=red>FOOLS MATE</color>", Utils.FormattedStringFromFormattedText("<color=red>FOOLS MATE</color>"), true));
+            styleDic.Add("<color=orange>WHITE WINS</color>", new FormattedStringField(miscStylePanel, "White Wins", "<color=orange>WHITE WINS</color>", Utils.FormattedStringFromFormattedText("<color=orange>WHITE WINS</color>"), true));
+            styleDic.Add("<color=orange>BLACK WINS</color>", new FormattedStringField(miscStylePanel, "Black Wins", "<color=orange>BLACK WINS</color>", Utils.FormattedStringFromFormattedText("<color=orange>BLACK WINS</color>"), true));
+            styleDic.Add("<color=red>ULTRAVICTORY</color>", new FormattedStringField(miscStylePanel, "Ultravictory", "<color=red>ULTRAVICTORY</color>", Utils.FormattedStringFromFormattedText("<color=red>ULTRAVICTORY</color>"), true));
 
             // UNKNOWNS
             unknownPanelSearchButton = new ButtonField(unknownStylePanel, "Search For Unknown Styles", "unknownPanelSearchButton");
