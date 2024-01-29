@@ -6,6 +6,7 @@ using System.Text;
 using static UnityEngine.UIElements.UIRAtlasAllocator;
 using UnityEngine.SocialPlatforms;
 using UnityEngine;
+using System.Reflection;
 
 namespace UltrakillStyleEditor
 {
@@ -155,4 +156,52 @@ namespace UltrakillStyleEditor
             return builder.Build();
         }
     }
+
+    public static class ReflectionUtils
+    {
+        public static MethodInfo InstanceMethod(Type type, string name)
+        {
+            return type.GetMethod(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        }
+
+		public static MethodInfo InstanceMethod<T>(string name)
+        {
+            return InstanceMethod(typeof(T), name);
+        }
+
+		public static MethodInfo StaticMethod(Type type, string name)
+		{
+			return type.GetMethod(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+		}
+
+		public static PropertyInfo InstanceProperty(Type type, string name)
+		{
+			return type.GetProperty(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+		}
+
+		public static PropertyInfo InstanceProperty<T>(string name)
+		{
+			return InstanceProperty(typeof(T), name);
+		}
+
+		public static PropertyInfo StaticProperty(Type type, string name)
+		{
+			return type.GetProperty(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+		}
+
+		public static FieldInfo InstanceField(Type type, string name)
+		{
+			return type.GetField(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+		}
+
+		public static FieldInfo InstanceField<T>(string name)
+		{
+			return InstanceField(typeof(T), name);
+		}
+
+		public static FieldInfo StaticField(Type type, string name)
+		{
+			return type.GetField(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+		}
+	}
 }

@@ -39,28 +39,14 @@ namespace UltrakillStyleEditor.Patches
         [HarmonyPrefix]
         public static bool Prefix(StyleHUD __instance, string __0, ref string __result)
         {
-            if (ConfigManager.styleDic.TryGetValue(__0, out FormattedStringField field))
-            {
-                __result = field.formattedString;
-                return false;
-            }
+            if (string.IsNullOrEmpty(__0) || __0.StartsWith("customcorpse."))
+                return true;
 
-            if (__instance.idNameDict.TryGetValue(__0, out string text))
-            {
-                var configField = new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(text), true);
-                ConfigManager.styleDic.Add(__0, configField);
-                ConfigManager.AddValueChangeListener(__0, configField);
-            }
-            else
-            {
-                var configField = new FormattedStringField(ConfigManager.unknownStylePanel, __0, __0, Utils.FormattedStringFromFormattedText(__0), true);
-                ConfigManager.styleDic.Add(__0, configField);
-                ConfigManager.AddValueChangeListener(__0, configField);
-            }
+            FormattedStringField field = ConfigManager.GetOrCreateField(__0);
+            if (field == null)
+                return true;
 
-            Debug.LogWarning($"Added unknown style {__0}");
-
-            __result = ConfigManager.styleDic[__0].formattedString;
+            __result = field.formattedString;
             return false;
         }
     }

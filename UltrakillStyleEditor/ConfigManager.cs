@@ -5,9 +5,13 @@ using PluginConfig.API.Functionals;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using CharacterInfo = PluginConfig.API.Fields.CharacterInfo;
 
 namespace UltrakillStyleEditor
 {
@@ -27,7 +31,26 @@ namespace UltrakillStyleEditor
 
         public static ButtonField unknownPanelSearchButton;
 
-        public static void AddValueChangeListener(string id, FormattedStringField field)
+		public static FormattedStringField GetOrCreateField(string id)
+		{
+			if (styleDic.TryGetValue(id, out FormattedStringField field))
+				return field;
+
+			if (string.IsNullOrEmpty(id))
+				return null;
+
+            string defaultRawValue = id;
+            if (StyleHUD.Instance != null && StyleHUD.Instance.idNameDict.TryGetValue(id, out string text))
+                defaultRawValue = text;
+
+			var configField = new FormattedStringField(ConfigManager.unknownStylePanel, id, id, Utils.FormattedStringFromFormattedText(defaultRawValue), true);
+			styleDic.Add(id, configField);
+			AddValueChangeListener(id, configField);
+
+			return configField;
+		}
+
+		public static void AddValueChangeListener(string id, FormattedStringField field)
         {
             field.onValueChange += (FormattedStringField.FormattedStringValueChangeEvent e) =>
             {
@@ -195,10 +218,29 @@ namespace UltrakillStyleEditor
 
                 foreach (KeyValuePair<string, string> pair in StyleHUD.instance.idNameDict)
                 {
-                    if (styleDic.ContainsKey(pair.Key))
+                    if (styleDic.ContainsKey(pair.Key) || pair.Key.StartsWith("customcorpse."))
                         continue;
 
                     toProcess.Add(pair);
+                }
+
+                foreach (GameObject rootObj in SceneManager.GetActiveScene().GetRootGameObjects())
+                {
+                    foreach (DeathZone deathZone in rootObj.GetComponentsInChildren<DeathZone>(true))
+                    {
+                        string id = deathZone.deathType;
+                        if (string.IsNullOrEmpty(id))
+                            continue;
+
+						if (styleDic.ContainsKey(id) || id.StartsWith("customcorpse.") || toProcess.Where(p => p.Key == id).Any())
+							continue;
+
+                        string styleText = id;
+                        if (StyleHUD.Instance.idNameDict.TryGetValue(id, out string formattedStyle))
+                            styleText = formattedStyle;
+
+						toProcess.Add(new KeyValuePair<string, string>(id, styleText));
+					}
                 }
 
                 foreach (var pair in toProcess)

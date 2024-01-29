@@ -16,10 +16,10 @@ namespace UltrakillStyleEditor
         private void Awake()
         {
             // Plugin startup logic
+            ConfigManager.Init();
+
             harmony = new Harmony($"{PLUGIN_GUID}");
             harmony.PatchAll();
-
-            ConfigManager.Init();
 
             Logger.LogInfo($"Plugin {PLUGIN_GUID} is loaded!");
         }
