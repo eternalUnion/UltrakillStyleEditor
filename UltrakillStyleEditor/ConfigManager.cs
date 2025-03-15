@@ -285,18 +285,27 @@ namespace UltrakillStyleEditor
             unknownPanelSearchButton = new ButtonField(unknownStylePanel, "Search For Unknown Styles", "unknownPanelSearchButton");
             unknownPanelSearchButton.onClick += () =>
             {
-                if (StyleHUD.instance == null)
-                    return;
-
                 List<KeyValuePair<string, string>> toProcess = new List<KeyValuePair<string, string>>();
 
-                foreach (KeyValuePair<string, string> pair in StyleHUD.instance.idNameDict)
+                if (StyleHUD.Instance != null)
                 {
-                    if (styleDic.ContainsKey(pair.Key) || pair.Key.StartsWith("customcorpse."))
-                        continue;
+                    foreach (KeyValuePair<string, string> pair in StyleHUD.Instance.idNameDict)
+                    {
+                        if (styleDic.ContainsKey(pair.Key) || pair.Key.StartsWith("customcorpse."))
+                            continue;
 
-                    toProcess.Add(pair);
+                        toProcess.Add(pair);
+                    }
                 }
+
+                foreach (var pair in toProcess)
+                {
+                    var field = new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value), true);
+                    styleDic.Add(pair.Key, field);
+                    AddValueChangeListener(pair.Key, field);
+                }
+
+                toProcess.Clear();
 
                 foreach (GameObject rootObj in SceneManager.GetActiveScene().GetRootGameObjects())
                 {
@@ -306,11 +315,11 @@ namespace UltrakillStyleEditor
                         if (string.IsNullOrEmpty(id))
                             continue;
 
-						if (styleDic.ContainsKey(id) || id.StartsWith("customcorpse.") || toProcess.Where(p => p.Key == id).Any())
+						if (styleDic.ContainsKey(id) || id.StartsWith("customcorpse."))
 							continue;
 
                         string styleText = id;
-                        if (StyleHUD.Instance.idNameDict.TryGetValue(id, out string formattedStyle))
+                        if (StyleHUD.Instance != null && StyleHUD.Instance.idNameDict.TryGetValue(id, out string formattedStyle))
                             styleText = formattedStyle;
 
 						toProcess.Add(new KeyValuePair<string, string>(id, styleText));
@@ -319,7 +328,7 @@ namespace UltrakillStyleEditor
 
                 foreach (var pair in toProcess)
                 {
-                    var field = new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value));
+                    var field = new FormattedStringField(unknownStylePanel, pair.Key, pair.Key, Utils.FormattedStringFromFormattedText(pair.Value), true);
                     styleDic.Add(pair.Key, field);
                     AddValueChangeListener(pair.Key, field);
                 }
